@@ -8,14 +8,14 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import { Avatar } from '@mui/material'
 
-const createData = (rank: number, name: string, score: number, level: number, ow: string) => {
-  return { rank, name, score, level, ow }
+const createData = (rank: number, name: string, score: number, level: number, ow: string, image: string) => {
+  return { rank, name, score, level, ow, image }
 }
 
 const rows = [
-  createData(1, 'Woosung Kang', 1000, 24, "Hi"),
-  createData(2, 'Namwoo Kim', 500, 37, "Hello"),
-  createData(3, 'Hyunhee Kang', 262, 16, "Hey")
+  createData(1, 'Woosung Kang', 1000, 24, '수학의 정석', 'man'),
+  createData(2, 'Namwoo Kim', 500, 37, 'Hellooooo', 'man'),
+  createData(3, 'Hyunhee Kang', 262, 16, 'Hiiii Heyyyy', 'girl')
 ]
 
 const TableBasic = () => {
@@ -41,10 +41,9 @@ const TableBasic = () => {
               }}
             >
               <TableCell>
-                <Avatar alt='Woosung' src='/images/avatars/4.png' sx={{ width: 34, height: 34 }} />
-                {row.rank}
-                
-                {row.name}
+                <Avatar alt='Woosung' src={`/images/avatars/${row.image}.png`} sx={{ width: 34, height: 34 }} />
+                <h4>{row.rank}</h4>
+                <h3>{row.name}</h3>
               </TableCell>
               <TableCell>{row.score}</TableCell>
               <TableCell>{row.level}</TableCell>

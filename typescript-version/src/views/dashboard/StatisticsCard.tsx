@@ -1,7 +1,5 @@
-// ** React Imports
 import { ReactElement } from 'react'
 
-// ** MUI Imports
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -11,14 +9,12 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Icons Imports
 import TrendingUp from 'mdi-material-ui/TrendingUp'
 import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 import CellphoneLink from 'mdi-material-ui/CellphoneLink'
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 
-// ** Types
 import { ThemeColor } from 'src/@core/layouts/types'
 
 interface DataType {
@@ -28,35 +24,35 @@ interface DataType {
   icon: ReactElement
 }
 
-const salesData: DataType[] = [
+const statistics: DataType[] = [
   {
-    stats: '245k',
-    title: 'Sales',
+    stats: '24%',
+    title: '성장률',
     color: 'primary',
     icon: <TrendingUp sx={{ fontSize: '1.75rem' }} />
   },
   {
-    stats: '12.5k',
-    title: 'Customers',
+    stats: '12',
+    title: '학년 내 평균 등수',
     color: 'success',
     icon: <AccountOutline sx={{ fontSize: '1.75rem' }} />
   },
   {
-    stats: '1.54k',
+    stats: '10 hrs',
     color: 'warning',
-    title: 'Products',
+    title: '평균 학습 시간',
     icon: <CellphoneLink sx={{ fontSize: '1.75rem' }} />
   },
   {
-    stats: '$88k',
+    stats: '880',
     color: 'info',
-    title: 'Revenue',
+    title: '평균 포인트',
     icon: <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
   }
 ]
 
 const renderStats = () => {
-  return salesData.map((item: DataType, index: number) => (
+  return statistics.map((item: DataType, index: number) => (
     <Grid item xs={12} sm={3} key={index}>
       <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
         <Avatar

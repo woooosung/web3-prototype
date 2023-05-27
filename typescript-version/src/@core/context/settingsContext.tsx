@@ -1,15 +1,13 @@
-// ** React Imports
 import { createContext, useState, ReactNode } from 'react'
 
-// ** ThemeConfig Import
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Types Import
 import { ThemeColor, ContentWidth } from 'src/@core/layouts/types'
 
 export type Settings = {
   themeColor: ThemeColor
   contentWidth: ContentWidth
+  userId: string
 }
 
 export type SettingsContextValue = {
@@ -19,7 +17,8 @@ export type SettingsContextValue = {
 
 const initialSettings: Settings = {
   themeColor: 'primary',
-  contentWidth: themeConfig.contentWidth
+  contentWidth: themeConfig.contentWidth,
+  userId: ''
 }
 
 // ** Create Context
