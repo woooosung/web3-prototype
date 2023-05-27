@@ -65,8 +65,6 @@ const MetaMaskButton: React.FC = () => {
           TargetGrade: null,
           wallet: account
         };
-        saveSettings({ ...settings, userId: account });
-        router.push('/');
         const usersRef = collection(db, 'user');
         try {
           console.log(usersRef)
@@ -75,6 +73,7 @@ const MetaMaskButton: React.FC = () => {
         } catch (error) {
           console.error('Error adding dummy user: ', error);
         }
+          saveSettings({ ...settings, userId: account });
           router.push('/pages/survey')
         }
     } catch (error) {
