@@ -9,16 +9,10 @@ const Tooltip = (theme: Theme) => {
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          backgroundColor:
-            theme.palette.mode === 'light'
-              ? hexToRGBA(theme.palette.grey[900], 0.9)
-              : hexToRGBA(theme.palette.grey[700], 0.9)
+          backgroundColor: hexToRGBA(theme.palette.grey[900], 0.9)
         },
         arrow: {
-          color:
-            theme.palette.mode === 'light'
-              ? hexToRGBA(theme.palette.grey[900], 0.9)
-              : hexToRGBA(theme.palette.grey[700], 0.9)
+          color: hexToRGBA(theme.palette.grey[900], 0.9)
         }
       }
     }

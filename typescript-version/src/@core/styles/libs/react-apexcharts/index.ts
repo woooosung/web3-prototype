@@ -32,12 +32,12 @@ const ApexChartWrapper = styled('div')(({ theme }) => ({
     },
     '& .apexcharts-xaxistooltip': {
       borderColor: theme.palette.divider,
-      background: theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.background.default,
+      background: theme.palette.grey[50],
       '& .apexcharts-xaxistooltip-text': {
         color: theme.palette.text.primary
       },
       '&:after': {
-        borderBottomColor: theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.background.default
+        borderBottomColor: theme.palette.grey[50]
       },
       '&:before': {
         borderBottomColor: theme.palette.divider
@@ -45,12 +45,12 @@ const ApexChartWrapper = styled('div')(({ theme }) => ({
     },
     '& .apexcharts-yaxistooltip': {
       borderColor: theme.palette.divider,
-      background: theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.background.default,
+      background: theme.palette.grey[50],
       '& .apexcharts-yaxistooltip-text': {
         color: theme.palette.text.primary
       },
       '&:after': {
-        borderLeftColor: theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.background.default
+        borderLeftColor: theme.palette.grey[50],
       },
       '&:before': {
         borderLeftColor: theme.palette.divider
@@ -85,7 +85,7 @@ const ApexChartWrapper = styled('div')(({ theme }) => ({
       stroke: theme.palette.divider
     },
     '& .apexcharts-heatmap-rect': {
-      stroke: theme.palette.mode === 'light' ? theme.palette.background.paper : theme.palette.background.default
+      stroke: theme.palette.background.paper
     },
     '& .apexcharts-radialbar > g > g:first-of-type .apexcharts-radialbar-area': {
       stroke: theme.palette.background.default

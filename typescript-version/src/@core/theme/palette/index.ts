@@ -1,12 +1,8 @@
-// ** Type Imports
-import { PaletteMode } from '@mui/material'
 import { ThemeColor } from 'src/@core/layouts/types'
 
-const DefaultPalette = (mode: PaletteMode, themeColor: ThemeColor) => {
+const DefaultPalette = (themeColor: ThemeColor) => {
   // ** Vars
-  const lightColor = '58, 53, 65'
-  const darkColor = '231, 227, 252'
-  const mainColor = mode === 'light' ? lightColor : darkColor
+  const mainColor = '58, 53, 65'
 
   const primaryGradient = () => {
     if (themeColor === 'primary') {
@@ -28,13 +24,12 @@ const DefaultPalette = (mode: PaletteMode, themeColor: ThemeColor) => {
     customColors: {
       main: mainColor,
       primaryGradient: primaryGradient(),
-      tableHeaderBg: mode === 'light' ? '#F9FAFC' : '#3D3759'
+      tableHeaderBg: '#F9FAFC'
     },
     common: {
       black: '#000',
       white: '#FFF'
     },
-    mode: mode,
     primary: {
       light: '#9E69FD',
       main: '#9155FD',
@@ -94,8 +89,8 @@ const DefaultPalette = (mode: PaletteMode, themeColor: ThemeColor) => {
     },
     divider: `rgba(${mainColor}, 0.12)`,
     background: {
-      paper: mode === 'light' ? '#FFF' : '#312D4B',
-      default: mode === 'light' ? '#F4F5FA' : '#28243D'
+      paper: '#FFF',
+      default: '#F4F5FA'
     },
     action: {
       active: `rgba(${mainColor}, 0.54)`,

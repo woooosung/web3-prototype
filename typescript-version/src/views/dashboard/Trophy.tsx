@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 
 // Styled component for the triangle shaped background image
 const TriangleImg = styled('img')({
@@ -22,10 +22,7 @@ const TrophyImg = styled('img')({
 })
 
 const Trophy = () => {
-  // ** Hook
-  const theme = useTheme()
-
-  const imageSrc = theme.palette.mode === 'light' ? 'triangle-light.png' : 'triangle-dark.png'
+  const imageSrc = 'triangle-light.png'
 
   return (
     <Card sx={{ position: 'relative' }}>

@@ -39,8 +39,7 @@ const DateTimePicker = (theme: Theme) => {
           },
           '& + div': {
             '& > div': {
-              backgroundColor:
-                theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.background.default,
+              backgroundColor: theme.palette.grey[50],
               '& ~ .MuiIconButton-root span.MuiTypography-caption': {
                 color: 'inherit'
               }

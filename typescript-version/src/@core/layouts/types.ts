@@ -31,13 +31,9 @@ export type LayoutProps = {
   settings: Settings
   children: ReactNode
   verticalNavItems?: VerticalNavItemsType
-  scrollToTop?: (props?: any) => ReactNode
   saveSettings: (values: Settings) => void
-  footerContent?: (props?: any) => ReactNode
   verticalAppBarContent?: (props?: any) => ReactNode
   verticalNavMenuContent?: (props?: any) => ReactNode
-  verticalNavMenuBranding?: (props?: any) => ReactNode
-  afterVerticalNavMenuContent?: (props?: any) => ReactNode
   beforeVerticalNavMenuContent?: (props?: any) => ReactNode
 }
 

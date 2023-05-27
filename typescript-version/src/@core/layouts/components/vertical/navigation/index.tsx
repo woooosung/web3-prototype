@@ -32,7 +32,6 @@ interface Props {
   verticalNavItems?: VerticalNavItemsType
   saveSettings: (values: Settings) => void
   verticalNavMenuContent?: (props?: any) => ReactNode
-  afterVerticalNavMenuContent?: (props?: any) => ReactNode
   beforeVerticalNavMenuContent?: (props?: any) => ReactNode
 }
 
@@ -54,7 +53,6 @@ const Navigation = (props: Props) => {
   // ** Props
   const {
     hidden,
-    afterVerticalNavMenuContent,
     beforeVerticalNavMenuContent,
     verticalNavMenuContent: userVerticalNavMenuContent
   } = props
@@ -84,10 +82,9 @@ const Navigation = (props: Props) => {
     }
   }
 
-  // ** Scroll Menu
-  const scrollMenu = (container: any) => {
-    container = hidden ? container.target : container
-    if (shadowRef && container.scrollTop > 0) {
+  // ** Scroll Men
+  const scrollMenu = () => {
+    if (shadowRef) {
       // @ts-ignore
       if (!shadowRef.current.classList.contains('d-block')) {
         // @ts-ignore
@@ -103,7 +100,7 @@ const Navigation = (props: Props) => {
 
   return (
     <Drawer {...props}>
-      <VerticalNavHeader {...props} />
+      <VerticalNavHeader />
       <StyledBoxForShadow
         ref={shadowRef}
         sx={{
@@ -119,12 +116,12 @@ const Navigation = (props: Props) => {
           containerRef={(ref: any) => handleInfiniteScroll(ref)}
           {...(hidden
             ? {
-                onScroll: (container: any) => scrollMenu(container),
+                onScroll: () => scrollMenu(),
                 sx: { height: '100%', overflowY: 'auto', overflowX: 'hidden' }
               }
             : {
                 options: { wheelPropagation: false },
-                onScrollY: (container: any) => scrollMenu(container)
+                onScrollY: () => scrollMenu()
               })}
         >
           {beforeVerticalNavMenuContent ? beforeVerticalNavMenuContent(props) : null}
@@ -145,7 +142,6 @@ const Navigation = (props: Props) => {
           </Box>
         </ScrollWrapper>
       </Box>
-      {afterVerticalNavMenuContent ? afterVerticalNavMenuContent(props) : null}
     </Drawer>
   )
 }

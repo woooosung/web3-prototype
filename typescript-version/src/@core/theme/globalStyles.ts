@@ -8,17 +8,17 @@ const GlobalStyles = (theme: Theme) => {
       right: '0 !important',
       left: 'auto !important',
       '&:hover, &:focus, &.ps--clicking': {
-        backgroundColor: theme.palette.mode === 'light' ? '#E4E5EB !important' : '#423D5D !important'
+        backgroundColor: '#E4E5EB !important'
       },
       '& .ps__thumb-y': {
         right: '3px !important',
         left: 'auto !important',
-        backgroundColor: theme.palette.mode === 'light' ? '#C2C4D1 !important' : '#504B6D !important'
+        backgroundColor: '#C2C4D1 !important'
       },
       '.layout-vertical-nav &': {
         '& .ps__thumb-y': {
           width: 4,
-          backgroundColor: theme.palette.mode === 'light' ? '#C2C4D1 !important' : '#504B6D !important'
+          backgroundColor: '#C2C4D1 !important'
         },
         '&:hover, &:focus, &.ps--clicking': {
           backgroundColor: 'transparent !important',

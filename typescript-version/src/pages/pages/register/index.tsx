@@ -35,9 +35,6 @@ import themeConfig from 'src/configs/themeConfig'
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Imports
-import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
-
 interface State {
   password: string
   showPassword: boolean
@@ -232,7 +229,7 @@ const RegisterPage = () => {
               <Link href='/' passHref>
                 <IconButton component='a' onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}>
                   <Github
-                    sx={{ color: theme => (theme.palette.mode === 'light' ? '#272727' : theme.palette.grey[300]) }}
+                    sx={{ color: '#272727' }}
                   />
                 </IconButton>
               </Link>
@@ -245,7 +242,6 @@ const RegisterPage = () => {
           </form>
         </CardContent>
       </Card>
-      <FooterIllustrationsV1 />
     </Box>
   )
 }

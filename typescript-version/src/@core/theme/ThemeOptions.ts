@@ -13,10 +13,10 @@ import breakpoints from './breakpoints'
 
 const themeOptions = (settings: Settings): ThemeOptions => {
   // ** Vars
-  const { mode, themeColor } = settings
+  const { themeColor } = settings
 
   const themeConfig = {
-    palette: palette(mode, themeColor),
+    palette: palette(themeColor),
     typography: {
       fontFamily: [
         'Inter',
@@ -33,7 +33,7 @@ const themeOptions = (settings: Settings): ThemeOptions => {
         '"Segoe UI Symbol"'
       ].join(',')
     },
-    shadows: shadows(mode),
+    shadows: shadows(),
     ...spacing,
     breakpoints: breakpoints(),
     shape: {
