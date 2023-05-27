@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import detectEthereumProvider  from '@metamask/detect-provider';
 import { useRouter } from 'next/router'
-import { collection, query, where, getDocs, addDoc }from 'firebase/firestore';
-import db from '../../../utils/firebaseConfig.js';
+import { collection, query, where, getDocs }from 'firebase/firestore/lite';
+import 'firebase/firestore';
+import {db} from '../../utils/firebaseConfig.js';
 
 import Button from '@mui/material/Button'
 
@@ -48,30 +49,17 @@ const MetaMaskButton: React.FC = () => {
   };
   
   const checkWallet =  async () => {
+
+    const cookieName = 'myCookie';
+    const cookieValue = account;
+    const maxAgeInSeconds = 60 * 60 * 24;
+    document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=${maxAgeInSeconds}`;
     try {
         const usersRef = collection(db, 'user');
         const querySnapshot = await getDocs(query(usersRef, where('wallet', '==', account)));
         if (!querySnapshot.empty) {
           router.push('/')
         } else {
-
-        const dummyUser = {
-          MockGrade : null,
-          Region : null,
-          SchoolGrade : null,
-          SchoolType: null,
-          StudyType : null,
-          TargetGrade: null,
-          wallet: account
-        };
-        const usersRef = collection(db, 'user');
-        try {
-          console.log(usersRef)
-          const docRef = await addDoc(usersRef, dummyUser);
-          console.log('Dummy user added with ID: ', docRef.id);
-        } catch (error) {
-          console.error('Error adding dummy user: ', error);
-        }
           router.push('/pages/survey')
         }
     } catch (error) {
