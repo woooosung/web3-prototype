@@ -1,6 +1,5 @@
 // ** Icon imports
 import Table from 'mdi-material-ui/Table'
-import CubeOutline from 'mdi-material-ui/CubeOutline'
 import HomeOutline from 'mdi-material-ui/HomeOutline'
 import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
 
@@ -26,11 +25,6 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Ranking',
       icon: Table,
       path: '/ranking'
-    },
-    {
-      icon: CubeOutline,
-      title: 'Form Layouts',
-      path: '/form-layouts'
     }
   ]
 }

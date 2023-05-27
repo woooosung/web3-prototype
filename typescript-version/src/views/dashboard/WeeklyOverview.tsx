@@ -102,7 +102,7 @@ const WeeklyOverview = () => {
           <Typography variant='h5' sx={{ mr: 4 }}>
             45%
           </Typography>
-          <Typography variant='body2'>Your sales performance is 45% 😎 better compared to last month</Typography>
+          <Typography variant='body2'>스코어가 지난 달보다 45% 만큼 증가했어요. 😎</Typography>
         </Box>
         <Button fullWidth variant='contained'>
           Details

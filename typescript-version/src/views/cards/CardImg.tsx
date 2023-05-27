@@ -1,21 +1,31 @@
-// ** MUI Imports
+import Link from 'next/link'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import { CardActionArea } from '@mui/material'
 
-const CardImg = () => {
+type CardImgProps = {
+  text: string
+  id: number
+  grade: number
+}
+
+const CardImg = (props: CardImgProps) => {
+  const {text, id, grade } =  props
+
   return (
     <Card>
-      <CardMedia sx={{ height: '10rem' }} image='/images/cards/2023_03.png' />
-      <CardContent>
-        <Typography variant='h6' sx={{ marginBottom: 2 }}>
-          2023 3월 모의고사
-        </Typography>
-        <Typography variant='body2'>
-          도전해보세요!
-        </Typography>
-      </CardContent>
+      <Link href={`/competitions/${grade}/${id}`} passHref>
+        <CardActionArea>
+          <CardMedia sx={{ height: '10rem' }} image='/images/cards/2023_03.png' />
+          <CardContent>
+            <Typography variant='h6' sx={{ marginBottom: 2 }}>
+              {text}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Link>
     </Card>
   )
 }

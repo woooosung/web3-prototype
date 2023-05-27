@@ -21,10 +21,10 @@ const Dashboard = () => {
           <StatisticsCard />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <WeeklyOverview />
+          <TotalEarning />
         </Grid>
         <Grid item xs={12} md={6} lg={8}>
-          <TotalEarning />
+          <WeeklyOverview />
         </Grid>
       </Grid>
     </ApexChartWrapper>
