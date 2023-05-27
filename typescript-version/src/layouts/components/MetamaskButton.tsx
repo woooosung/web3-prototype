@@ -73,6 +73,7 @@ const MetaMaskButton: React.FC = () => {
         } catch (error) {
           console.error('Error adding dummy user: ', error);
         }
+          saveSettings({ ...settings, userId: account });
           router.push('/pages/survey')
         }
     } catch (error) {
@@ -91,12 +92,7 @@ const MetaMaskButton: React.FC = () => {
       ) : (
         <div>
             <p>Connected with address: {account}</p>
-            <Button fullWidth size='large' variant='contained' onClick ={
-              () => {
-                saveSettings({ ...settings, userId: account })
-                checkWallet;
-              }
-            }>Go to Home</Button>
+            <Button fullWidth size='large' variant='contained' onClick ={checkWallet}>Go to Home</Button>
             <Button fullWidth size='medium' onClick={logout}>Logout</Button>
         </div>
       )}
