@@ -1,53 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Box } from '@mui/material';
-import {db} from '../../utils/firebaseConfig.js';
-import { collection, addDoc }from 'firebase/firestore/lite';
+import React, { useState } from 'react'
+import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Box } from '@mui/material'
+import { db } from '../../utils/firebaseConfig.js'
+import { collection, addDoc } from 'firebase/firestore/lite'
 import { useRouter } from 'next/router'
 
 const SurveyForm = () => {
-  const [region, setRegion] = useState('');
-  const [grade, setGrade] = useState('');
-  const [schoolGrade, setSchoolGrade] = useState('');
-  const [schooltype, setschoolType] = useState('');
-  const [target, setTarget] = useState('');
-  const [studyType, setStudyType] = useState('');
-  const router = useRouter();
-  let cookieValue;
+  const [region, setRegion] = useState('')
+  const [grade, setGrade] = useState('')
+  const [schoolGrade, setSchoolGrade] = useState('')
+  const [schooltype, setschoolType] = useState('')
+  const [target, setTarget] = useState('')
+  const [studyType, setStudyType] = useState('')
+  const router = useRouter()
 
   const handleSubmit = e => {
     e.preventDefault()
   }
 
-  useEffect(() => {
-    const cookieName = 'myCookie';
-    const cookies = document.cookie.split(';');
+  const submitUser = async () => {
+    const cookieName = 'myCookie'
+    const cookies = document.cookie.split(';')
     for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
+      const cookie = cookies[i].trim()
       if (cookie.startsWith(`${cookieName}=`)) {
-        cookieValue = cookie.substring(cookieName.length + 1);
-        break;
+        cookieValue = cookie.substring(cookieName.length + 1)
+        break
       }
     }
-  }, []);
 
-  const submitUser = async () => {
     const userData = {
-        MockGrade : grade,
-        Region : region,
-        SchoolGrade : schoolGrade,
-        SchoolType: schooltype,
-        StudyType : studyType,
-        TargetGrade: target,
-        wallet: cookieValue
-    };
-    const usersRef = collection(db, 'user');
+      MockGrade: grade,
+      Region: region,
+      SchoolGrade: schoolGrade,
+      SchoolType: schooltype,
+      StudyType: studyType,
+      TargetGrade: target,
+      wallet: cookieValue
+    }
+    console.log('DATA', userData)
+    const usersRef = collection(db, 'user')
     try {
-        await addDoc(usersRef, userData);
-        console.log('user added');
+      await addDoc(usersRef, userData)
+      console.log('user added')
     } catch (error) {
-        console.error('Error adding user: ', error);
+      console.error('Error adding user: ', error)
     } finally {
-        router.push('/')
+      router.push('/')
     }
   }
 
@@ -113,7 +111,7 @@ const SurveyForm = () => {
           </Select>
         </FormControl>
       </Box>
-      <Button type="submit" variant="contained" color="primary" onClick ={submitUser}>
+      <Button type='submit' variant='contained' color='primary' onClick={submitUser}>
         Submit
       </Button>
     </form>

@@ -58,9 +58,9 @@ const MetaMaskButton: React.FC = () => {
     const maxAgeInSeconds = 60 * 60 * 24;
     document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=${maxAgeInSeconds}`;
     try {
+        saveSettings({ ...settings, userId: account });
         const usersRef = collection(db, 'user');
         const querySnapshot = await getDocs(query(usersRef, where('wallet', '==', account)));
-        saveSettings({ ...settings, userId: account });
         if (!querySnapshot.empty) {
           router.push('/')
         } else {
