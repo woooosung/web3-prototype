@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
 import detectEthereumProvider  from '@metamask/detect-provider';
 import { useRouter } from 'next/router'
-
 import Button from '@mui/material/Button'
+import { useSettings } from 'src/@core/hooks/useSettings'
 
 const MetaMaskButton: React.FC = () => {
   const [provider, setProvider] = useState<any>(null);
   const [account, setAccount] = useState<string>('');
+  const { settings, saveSettings } = useSettings();
   const router = useRouter()
+
   const connectWallet = async () => {
     try {
       if (!provider) {
@@ -39,6 +40,7 @@ const MetaMaskButton: React.FC = () => {
       }
       setProvider(null);
       setAccount('');
+      saveSettings({ ...settings, userId: '' });
     } catch (error) {
       console.error(error);
     }
@@ -50,12 +52,16 @@ const MetaMaskButton: React.FC = () => {
 
   return (
     <div>
-      {!account ? (
+      {!account && !settings.userId ? (
         <Button fullWidth size='large' variant='contained' sx={{ marginBottom: 7 }} onClick={connectWallet}>Login With MetaMask</Button>
       ) : (
         <div>
             <p>Connected with address: {account}</p>
-            <Button fullWidth size='large' variant='contained' onClick ={ () => router.push('/')}>Go to Home</Button>
+            <Button fullWidth size='large' variant='contained' onClick ={ () => {
+              saveSettings({ ...settings, userId: account });
+              router.push('/');
+              }}>Go to Home
+            </Button>
             <Button fullWidth size='medium' onClick={logout}>Logout</Button>
         </div>
         
