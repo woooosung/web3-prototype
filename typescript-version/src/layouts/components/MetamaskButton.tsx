@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import detectEthereumProvider  from '@metamask/detect-provider';
 import { useRouter } from 'next/router'
+import { collection, query, where, getDocs, addDoc }from 'firebase/firestore';
+import db from '../../../utils/firebaseConfig.js';
 
 import Button from '@mui/material/Button'
 
@@ -9,6 +11,7 @@ const MetaMaskButton: React.FC = () => {
   const [provider, setProvider] = useState<any>(null);
   const [account, setAccount] = useState<string>('');
   const router = useRouter()
+
   const connectWallet = async () => {
     try {
       if (!provider) {
@@ -43,6 +46,38 @@ const MetaMaskButton: React.FC = () => {
       console.error(error);
     }
   };
+  
+  const checkWallet =  async () => {
+    try {
+        const usersRef = collection(db, 'user');
+        const querySnapshot = await getDocs(query(usersRef, where('wallet', '==', account)));
+        if (!querySnapshot.empty) {
+          router.push('/')
+        } else {
+
+        const dummyUser = {
+          MockGrade : null,
+          Region : null,
+          SchoolGrade : null,
+          SchoolType: null,
+          StudyType : null,
+          TargetGrade: null,
+          wallet: account
+        };
+        const usersRef = collection(db, 'user');
+        try {
+          console.log(usersRef)
+          const docRef = await addDoc(usersRef, dummyUser);
+          console.log('Dummy user added with ID: ', docRef.id);
+        } catch (error) {
+          console.error('Error adding dummy user: ', error);
+        }
+          router.push('/pages/survey')
+        }
+    } catch (error) {
+        console.error('Error checking user existence:', error);
+    }
+  };
 
   useEffect(() => {
     connectWallet();
@@ -55,10 +90,9 @@ const MetaMaskButton: React.FC = () => {
       ) : (
         <div>
             <p>Connected with address: {account}</p>
-            <Button fullWidth size='large' variant='contained' onClick ={ () => router.push('/')}>Go to Home</Button>
+            <Button fullWidth size='large' variant='contained' onClick ={checkWallet}>Go to Home</Button>
             <Button fullWidth size='medium' onClick={logout}>Logout</Button>
         </div>
-        
       )}
     </div>
   );
