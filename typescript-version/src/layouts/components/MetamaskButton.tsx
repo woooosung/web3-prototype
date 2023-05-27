@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import detectEthereumProvider  from '@metamask/detect-provider';
 import { useRouter } from 'next/router'
+
 import { collection, query, where, getDocs }from 'firebase/firestore/lite';
 import 'firebase/firestore';
 import {db} from '../../utils/firebaseConfig.js';
@@ -59,6 +60,7 @@ const MetaMaskButton: React.FC = () => {
     try {
         const usersRef = collection(db, 'user');
         const querySnapshot = await getDocs(query(usersRef, where('wallet', '==', account)));
+        saveSettings({ ...settings, userId: account });
         if (!querySnapshot.empty) {
           router.push('/')
         } else {

@@ -12,13 +12,13 @@ type CardImgProps = {
 }
 
 const CardImg = (props: CardImgProps) => {
-  const {text, id, grade } =  props
+  const {text} =  props
 
   return (
     <Card>
-      <Link href={`/competitions/${grade}/${id}`} passHref>
+      <Link href={`/competitions/test`} passHref>
         <CardActionArea>
-          <CardMedia sx={{ height: '10rem' }} image='/images/cards/2023_03.png' />
+          <CardMedia sx={{ height: '5rem' }} image='/images/cards/2023_03.png' />
           <CardContent>
             <Typography variant='h6' sx={{ marginBottom: 2 }}>
               {text}

@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { Router } from 'next/router'
-import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
 import NProgress from 'nprogress'
@@ -23,7 +22,7 @@ import '../../styles/globals.css'
 import LoginPage from './pages/login'
 
 type ExtendedAppProps = AppProps & {
-  Component: NextPage
+  Component: any
   emotionCache: EmotionCache
 }
 
