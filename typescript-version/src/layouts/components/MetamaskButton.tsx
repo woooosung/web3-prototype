@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
 import detectEthereumProvider  from '@metamask/detect-provider';
 import { useRouter } from 'next/router'
 import { collection, query, where, getDocs }from 'firebase/firestore/lite';
@@ -7,10 +6,12 @@ import 'firebase/firestore';
 import {db} from '../../utils/firebaseConfig.js';
 
 import Button from '@mui/material/Button'
+import { useSettings } from 'src/@core/hooks/useSettings'
 
 const MetaMaskButton: React.FC = () => {
   const [provider, setProvider] = useState<any>(null);
   const [account, setAccount] = useState<string>('');
+  const { settings, saveSettings } = useSettings();
   const router = useRouter()
 
   const connectWallet = async () => {
@@ -43,6 +44,7 @@ const MetaMaskButton: React.FC = () => {
       }
       setProvider(null);
       setAccount('');
+      saveSettings({ ...settings, userId: '' });
     } catch (error) {
       console.error(error);
     }
@@ -73,7 +75,7 @@ const MetaMaskButton: React.FC = () => {
 
   return (
     <div>
-      {!account ? (
+      {!account && !settings.userId ? (
         <Button fullWidth size='large' variant='contained' sx={{ marginBottom: 7 }} onClick={connectWallet}>Login With MetaMask</Button>
       ) : (
         <div>
