@@ -22,7 +22,8 @@ const Upload = () => {
       setTimerRunning(false); // Stop the timer when it reaches 0
       router.push(`/score?score=${calculateScore()}`); // Redirect to the score page with the score as a query parameter
     }
-    return () => {
+    
+return () => {
       clearInterval(interval);
     };
   }, [timerRunning, timer]);
@@ -32,7 +33,8 @@ const Upload = () => {
     setInputs(prevInputs => {
       const updatedInputs = [...prevInputs];
       updatedInputs[index] = inputValue; // Store the input value in the corresponding index of the array
-      return updatedInputs;
+      
+return updatedInputs;
     });
   };
 
@@ -45,13 +47,15 @@ const Upload = () => {
   const calculateScore = () => {
     // Process the inputs and calculate the number of correct answers
     const correctAnswers = ['1', '2', '3', '4', '5'];
-    return inputs.filter((input, index) => input.trim().toLowerCase() === correctAnswers[index]).length;
+    
+return inputs.filter((input, index) => input.trim().toLowerCase() === correctAnswers[index]).length;
   };
 
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    
+return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
   return (

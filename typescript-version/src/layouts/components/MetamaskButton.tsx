@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import detectEthereumProvider  from '@metamask/detect-provider';
 import { useRouter } from 'next/router'
 import { collection, query, where, getDocs, addDoc }from 'firebase/firestore';
-import db from '../../../utils/firebaseConfig.js';
+import db from 'src/utils/firebaseConfig.js';
 import Button from '@mui/material/Button'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
@@ -65,6 +65,8 @@ const MetaMaskButton: React.FC = () => {
           TargetGrade: null,
           wallet: account
         };
+        saveSettings({ ...settings, userId: account });
+        router.push('/');
         const usersRef = collection(db, 'user');
         try {
           console.log(usersRef)
@@ -73,7 +75,6 @@ const MetaMaskButton: React.FC = () => {
         } catch (error) {
           console.error('Error adding dummy user: ', error);
         }
-          saveSettings({ ...settings, userId: account });
           router.push('/pages/survey')
         }
     } catch (error) {

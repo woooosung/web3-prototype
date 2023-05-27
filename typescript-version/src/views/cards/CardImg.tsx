@@ -12,7 +12,7 @@ type CardImgProps = {
 }
 
 const CardImg = (props: CardImgProps) => {
-  const {text, id, grade } =  props
+  const {text} =  props
 
   return (
     <Card>

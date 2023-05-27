@@ -1,6 +1,5 @@
-import { initializeApp, getApps } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
-import { getAuth } from "firebase/auth"
+import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
 import dotenv from 'dotenv'
 
 dotenv.config({ path: 'config.env' })
@@ -13,10 +12,10 @@ const firebaseConfig = {
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
   appId: process.env.FIREBASE_APP_ID,
-  databaseURL : process.env.FIREBASE_DATABASEURL
-};
+  databaseURL: process.env.FIREBASE_DATABASEURL
+}
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 
 export default db
