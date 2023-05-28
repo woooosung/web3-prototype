@@ -55,10 +55,11 @@ const MetaMaskButton: React.FC = () => {
 
     const cookieName = 'myCookie';
     const cookieValue = account;
-    const maxAgeInSeconds = 60 * 60 * 24;
-    document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=${maxAgeInSeconds}`;
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 1);
+
+    document.cookie = `${cookieName}=${cookieValue}; expires=${expirationDate.toUTCString()}; path=/;`;
     try {
-        saveSettings({ ...settings, userId: account });
         const usersRef = collection(db, 'user');
         const querySnapshot = await getDocs(query(usersRef, where('wallet', '==', account)));
         if (!querySnapshot.empty) {
