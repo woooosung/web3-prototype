@@ -22,7 +22,6 @@ import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
 import '../../styles/globals.css'
-import LoginPage from './pages/login'
 
 type ExtendedAppProps = AppProps & {
   Component: any
