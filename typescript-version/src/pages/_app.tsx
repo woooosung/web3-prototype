@@ -22,7 +22,6 @@ import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
 import '../../styles/globals.css'
-import LoginPage from './pages/login'
 
 type ExtendedAppProps = AppProps & {
   Component: any
@@ -51,11 +50,12 @@ const App = (props: ExtendedAppProps) => {
 
   useEffect(() => {
     // Perform any necessary client-side initialization or checks here
-    setIsCookieSet(document.cookie !== '');
-  
-    if (!isCookieSet) {
+    if (document.cookie == '') {
       // Redirect to a different page if the cookie is set
+      setIsCookieSet(false);
       router.push('/pages/login');
+    } else {
+      setIsCookieSet(true);
     }
   }, []);
 

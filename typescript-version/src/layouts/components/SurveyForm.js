@@ -3,9 +3,9 @@ import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Box } fro
 import { db } from '../../utils/firebaseConfig.js'
 import { collection, addDoc } from 'firebase/firestore/lite'
 import { useRouter } from 'next/router'
-import { ethers } from 'ethers';
 import Web3 from 'web3'
-import detectProvider from '@metamask/detect-provider';
+import detectProvider from '@metamask/detect-provider'
+
 
 const sepoliaRPC = 'https://rpc.sepolia.org'
 const tokenAddress = '0x95A6640F5d60AC4D1B0F2465820399fc5B5C7337'; // Replace with your contract address
@@ -151,15 +151,13 @@ const tokenABI = [{
   "type": "function"
 }];
 
-async function writeDataToToken(data){
+async function writeDataToToken(data) {
   try {
-    const provider = await detectProvider();
+    const provider = await detectProvider()
 
     if (!provider) {
-      throw new Error('MetaMask not detected');
+      throw new Error('MetaMask not detected')
     }
-    
-    const web3 = new Web3(provider);
 
     await provider.request({ method: 'eth_requestAccounts' });
     
@@ -176,8 +174,9 @@ async function writeDataToToken(data){
     await tokenContract.methods.setSurveyData(_Q1, _Q2, _Q3, _Q4, _Q5, _Q6).send({ from: provider.selectedAddress });
     
     console.log('Data written successfully');
+
   } catch (error) {
-    console.error('Error writing data to token:', error);
+    console.error('Error writing data to token:', error)
   }
 }
 
@@ -213,9 +212,9 @@ const SurveyForm = () => {
       SchoolType: schooltype,
       StudyType: studyType,
       TargetGrade: target,
-      wallet : cookieValue
+      wallet: cookieValue
     }
-
+    
     const surveyData = {
       Q1 : schooltype,
       Q2 : region,
