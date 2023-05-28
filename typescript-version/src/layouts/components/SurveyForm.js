@@ -38,7 +38,7 @@ const SurveyForm = () => {
       TargetGrade: target,
       wallet: cookieValue
     }
-    console.log('DATA', userData)
+    
     const usersRef = collection(db, 'user')
     try {
       await addDoc(usersRef, userData)
