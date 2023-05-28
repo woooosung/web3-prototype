@@ -1,5 +1,6 @@
 import { useState, SyntheticEvent, Fragment } from 'react'
 import { useRouter } from 'next/router'
+import { useSettings } from 'src/@core/hooks/useSettings'
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import Badge from '@mui/material/Badge'
@@ -20,7 +21,7 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 
 const UserDropdown = () => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-
+  const { settings, saveSettings } = useSettings();
   const router = useRouter()
 
   const handleDropdownOpen = (event: SyntheticEvent) => {
@@ -79,7 +80,11 @@ const UserDropdown = () => {
           </Box>
         </MenuItem>
         <Divider />
-        <MenuItem sx={{ py: 2 }} onClick={() => handleDropdownClose('/pages/login')}>
+        <MenuItem sx={{ py: 2 }} onClick={() => {
+          document.cookie = 'myCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+          saveSettings({ ...settings, userId: '' });
+          handleDropdownClose('/pages/login')
+        }}>
           <LogoutVariant sx={{ marginRight: 2, fontSize: '1.375rem', color: 'text.secondary' }} />
           Logout
         </MenuItem>

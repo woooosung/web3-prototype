@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import type { AppProps } from 'next/app'
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import NProgress from 'nprogress'
 
 import { CacheProvider } from '@emotion/react'
@@ -45,17 +45,13 @@ if (themeConfig.routingLoader) {
 // ** Configure JSS & ClassName
 const App = (props: ExtendedAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
-  const [isCookieSet, setIsCookieSet] = useState(false);
   const router = useRouter()
 
   useEffect(() => {
     // Perform any necessary client-side initialization or checks here
     if (document.cookie == '') {
       // Redirect to a different page if the cookie is set
-      setIsCookieSet(false);
       router.push('/pages/login');
-    } else {
-      setIsCookieSet(true);
     }
   }, []);
 

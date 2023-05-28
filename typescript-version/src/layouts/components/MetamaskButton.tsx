@@ -57,6 +57,7 @@ const MetaMaskButton: React.FC = () => {
     const cookieValue = account;
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + 1);
+    saveSettings({ ...settings, userId: account });
 
     document.cookie = `${cookieName}=${cookieValue}; expires=${expirationDate.toUTCString()}; path=/;`;
     try {
