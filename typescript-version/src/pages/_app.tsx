@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import { Router } from 'next/router'
+import { useRouter } from 'next/router';
+
 import type { AppProps } from 'next/app'
 
 import { useEffect, useState } from 'react';
@@ -45,10 +47,16 @@ if (themeConfig.routingLoader) {
 const App = (props: ExtendedAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
   const [isCookieSet, setIsCookieSet] = useState(false);
+  const router = useRouter()
 
   useEffect(() => {
     // Perform any necessary client-side initialization or checks here
     setIsCookieSet(document.cookie !== '');
+  
+    if (!isCookieSet) {
+      // Redirect to a different page if the cookie is set
+      router.push('/pages/login');
+    }
   }, []);
 
   return (
@@ -65,13 +73,9 @@ const App = (props: ExtendedAppProps) => {
           {({ settings }) => {
             return (
               <ThemeComponent settings={settings}>
-                {!isCookieSet ?
-                  <LoginPage />
-                :
-                  <UserLayout>
+                <UserLayout>
                     <Component {...pageProps}></Component>
-                  </UserLayout>
-                }
+                </UserLayout>
               </ThemeComponent>
             )
           }}
