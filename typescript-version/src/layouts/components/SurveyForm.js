@@ -3,174 +3,175 @@ import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Box } fro
 import { db } from '../../utils/firebaseConfig.js'
 import { collection, addDoc } from 'firebase/firestore/lite'
 import { useRouter } from 'next/router'
-import { ethers } from 'ethers';
 import Web3 from 'web3'
-import detectProvider from '@metamask/detect-provider';
+import detectProvider from '@metamask/detect-provider'
 
-const tokenAddress = '0x95A6640F5d60AC4D1B0F2465820399fc5B5C7337'; // Replace with your contract address
-const tokenABI = [{
-  "inputs": [
-    {
-      "internalType": "uint32",
-      "name": "_id",
-      "type": "uint32"
-    },
-    {
-      "internalType": "uint8",
-      "name": "_score",
-      "type": "uint8"
-    },
-    {
-      "internalType": "uint32",
-      "name": "_time",
-      "type": "uint32"
-    }
-  ],
-  "name": "setStudyData",
-  "outputs": [],
-  "stateMutability": "nonpayable",
-  "type": "function"
-},
-{
-  "inputs": [
-    {
-      "internalType": "string",
-      "name": "_Q1",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "_Q2",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "_Q3",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "_Q4",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "_Q5",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "_Q6",
-      "type": "string"
-    }
-  ],
-  "name": "setSurveyData",
-  "outputs": [],
-  "stateMutability": "nonpayable",
-  "type": "function"
-},
-{
-  "inputs": [
-    {
-      "internalType": "address",
-      "name": "_userAddress",
-      "type": "address"
-    }
-  ],
-  "name": "getStudyData",
-  "outputs": [
-    {
-      "components": [
-        {
-          "internalType": "uint32",
-          "name": "id",
-          "type": "uint32"
-        },
-        {
-          "internalType": "uint8",
-          "name": "score",
-          "type": "uint8"
-        },
-        {
-          "internalType": "uint32",
-          "name": "time",
-          "type": "uint32"
-        }
-      ],
-      "internalType": "struct UtilityToken.StudyData[]",
-      "name": "",
-      "type": "tuple[]"
-    }
-  ],
-  "stateMutability": "view",
-  "type": "function"
-},
-{
-  "inputs": [
-    {
-      "internalType": "address",
-      "name": "_userAddress",
-      "type": "address"
-    }
-  ],
-  "name": "getSurveyData",
-  "outputs": [
-    {
-      "internalType": "string",
-      "name": "",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "",
-      "type": "string"
-    },
-    {
-      "internalType": "string",
-      "name": "",
-      "type": "string"
-    }
-  ],
-  "stateMutability": "view",
-  "type": "function"
-}];
+const tokenAddress = '0x95A6640F5d60AC4D1B0F2465820399fc5B5C7337' // Replace with your contract address
+const tokenABI = [
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: '_id',
+        type: 'uint32'
+      },
+      {
+        internalType: 'uint8',
+        name: '_score',
+        type: 'uint8'
+      },
+      {
+        internalType: 'uint32',
+        name: '_time',
+        type: 'uint32'
+      }
+    ],
+    name: 'setStudyData',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: '_Q1',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '_Q2',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '_Q3',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '_Q4',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '_Q5',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '_Q6',
+        type: 'string'
+      }
+    ],
+    name: 'setSurveyData',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_userAddress',
+        type: 'address'
+      }
+    ],
+    name: 'getStudyData',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'uint32',
+            name: 'id',
+            type: 'uint32'
+          },
+          {
+            internalType: 'uint8',
+            name: 'score',
+            type: 'uint8'
+          },
+          {
+            internalType: 'uint32',
+            name: 'time',
+            type: 'uint32'
+          }
+        ],
+        internalType: 'struct UtilityToken.StudyData[]',
+        name: '',
+        type: 'tuple[]'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_userAddress',
+        type: 'address'
+      }
+    ],
+    name: 'getSurveyData',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string'
+      },
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  }
+]
 
-async function writeDataToToken(data){
+async function writeDataToToken(data) {
   try {
-    const provider = await detectProvider();
+    const provider = await detectProvider()
 
     if (!provider) {
-      throw new Error('MetaMask not detected');
+      throw new Error('MetaMask not detected')
     }
-    
-    const web3 = new Web3(provider);
 
-    await provider.request({ method: 'eth_requestAccounts' });
-    
-    const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
-    stringData = JSON.stringify(data);
-    
+    const web3 = new Web3(provider)
+
+    await provider.request({ method: 'eth_requestAccounts' })
+
+    const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress)
+    stringData = JSON.stringify(data)
+
     // Call the desired function of your token contract to write the JSON data
-    await tokenContract.methods.setSurveyData(stringData).send({ from: provider.selectedAddress });
-    
-    console.log('Data written successfully');
+    await tokenContract.methods.setSurveyData(stringData).send({ from: provider.selectedAddress })
+
+    console.log('Data written successfully')
   } catch (error) {
-    console.error('Error writing data to token:', error);
+    console.error('Error writing data to token:', error)
   }
 }
 
@@ -206,17 +207,19 @@ const SurveyForm = () => {
       SchoolType: schooltype,
       StudyType: studyType,
       TargetGrade: target,
-      wallet : cookieValue
+      wallet: cookieValue
     }
 
-    const surveyData = [{
-      Q1 : schooltype,
-      Q2 : region,
-      Q3 : grade,
-      Q4 : schoolGrade,
-      Q5 : target,
-      Q6 : studyType
-    }]
+    const surveyData = [
+      {
+        Q1: schooltype,
+        Q2: region,
+        Q3: grade,
+        Q4: schoolGrade,
+        Q5: target,
+        Q6: studyType
+      }
+    ]
 
     writeDataToToken(surveyData)
 

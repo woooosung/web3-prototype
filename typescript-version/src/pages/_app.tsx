@@ -50,11 +50,12 @@ const App = (props: ExtendedAppProps) => {
 
   useEffect(() => {
     // Perform any necessary client-side initialization or checks here
-    setIsCookieSet(document.cookie !== '');
-  
-    if (!isCookieSet) {
+    if (document.cookie == '') {
       // Redirect to a different page if the cookie is set
+      setIsCookieSet(false);
       router.push('/pages/login');
+    } else {
+      setIsCookieSet(true);
     }
   }, []);
 
