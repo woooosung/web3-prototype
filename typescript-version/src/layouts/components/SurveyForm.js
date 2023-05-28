@@ -7,6 +7,7 @@ import { ethers } from 'ethers';
 import Web3 from 'web3'
 import detectProvider from '@metamask/detect-provider';
 
+const sepoliaRPC = 'https://rpc.sepolia.org'
 const tokenAddress = '0x95A6640F5d60AC4D1B0F2465820399fc5B5C7337'; // Replace with your contract address
 const tokenABI = [{
   "inputs": [
@@ -163,10 +164,16 @@ async function writeDataToToken(data){
     await provider.request({ method: 'eth_requestAccounts' });
     
     const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
-    stringData = JSON.stringify(data);
     
+    const _Q1 = data.Q1
+    const _Q2 = data.Q2
+    const _Q3 = data.Q3
+    const _Q4 = data.Q4
+    const _Q5 = data.Q5
+    const _Q6 = data.Q6
+
     // Call the desired function of your token contract to write the JSON data
-    await tokenContract.methods.setSurveyData(stringData).send({ from: provider.selectedAddress });
+    await tokenContract.methods.setSurveyData(_Q1, _Q2, _Q3, _Q4, _Q5, _Q6).send({ from: provider.selectedAddress });
     
     console.log('Data written successfully');
   } catch (error) {
@@ -209,14 +216,14 @@ const SurveyForm = () => {
       wallet : cookieValue
     }
 
-    const surveyData = [{
+    const surveyData = {
       Q1 : schooltype,
       Q2 : region,
       Q3 : grade,
       Q4 : schoolGrade,
       Q5 : target,
       Q6 : studyType
-    }]
+    }
 
     writeDataToToken(surveyData)
 
