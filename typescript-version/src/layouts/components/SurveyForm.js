@@ -6,8 +6,6 @@ import { useRouter } from 'next/router'
 import Web3 from 'web3'
 import detectProvider from '@metamask/detect-provider'
 
-
-const sepoliaRPC = 'https://rpc.sepolia.org'
 const tokenAddress = '0x95A6640F5d60AC4D1B0F2465820399fc5B5C7337'; // Replace with your contract address
 const tokenABI = [{
   "inputs": [
@@ -154,7 +152,7 @@ const tokenABI = [{
 async function writeDataToToken(data) {
   try {
     const provider = await detectProvider()
-
+    const web3 = new Web3(provider);
     if (!provider) {
       throw new Error('MetaMask not detected')
     }
@@ -212,7 +210,8 @@ const SurveyForm = () => {
       SchoolType: schooltype,
       StudyType: studyType,
       TargetGrade: target,
-      wallet: cookieValue
+      wallet: cookieValue,
+      score : 0
     }
     
     const surveyData = {
