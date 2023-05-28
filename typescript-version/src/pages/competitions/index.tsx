@@ -15,13 +15,13 @@ const CardBasic = () => {
         <Button onClick={()=>setGrade(1)} variant='contained' color='primary' sx={{ marginTop: 2, marginLeft: 3 }}>1학년</Button>
       </Grid>
       <Grid item xs={12} sm={4} md={4}>
-        <CardImg grade={grade} id={1} text="2023 3월 모의고사"/>
+        <CardImg grade={grade} id={3} text="2023 3월 모의고사"/>
       </Grid>
       <Grid item xs={12} sm={4} md={4}>
-        <CardImg grade={grade} id={2} text="2022 6월 모의고사"/>
+        <CardImg grade={grade} id={6} text="2022 6월 모의고사"/>
       </Grid>
       <Grid item xs={12} sm={4} md={4}>
-        <CardImg grade={grade} id={3} text="2022 9월 모의고사"/>
+        <CardImg grade={grade} id={9} text="2022 9월 모의고사"/>
       </Grid>
       <Grid item xs={12} sm={4} md={4}>
         <CardOnly text='참여 인원: (3/15)' description='도전해보세요!' />
@@ -35,5 +35,7 @@ const CardBasic = () => {
     </Grid>
   )
 }
+
+
 
 export default CardBasic

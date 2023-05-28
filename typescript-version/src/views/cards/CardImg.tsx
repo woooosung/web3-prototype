@@ -12,11 +12,11 @@ type CardImgProps = {
 }
 
 const CardImg = (props: CardImgProps) => {
-  const {text} =  props
+  const {text, id, grade } =  props
 
   return (
     <Card>
-      <Link href={`/competitions/test`} passHref>
+      <Link href={{pathname: `/competitions/test`, query: {id, grade}}} passHref >
         <CardActionArea>
           <CardMedia sx={{ height: '5rem' }} image='/images/cards/2023_03.png' />
           <CardContent>
