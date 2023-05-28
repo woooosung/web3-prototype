@@ -44,6 +44,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
+    "@adraffy/ens-normalize": "^1.9.1",
     "@emotion/cache": "^11.6.0",
     "@emotion/react": "^11.7.0",
     "@emotion/server": "^11.4.0",
@@ -52,6 +53,7 @@
     "@mui/lab": "^5.0.0-alpha.70",
     "@mui/material": "^5.4.3",
     "@popperjs/core": "^2.11.2",
+    "@wagmi/connectors": "^2.0.0",
     "apexcharts-clevision": "3.28.5",
     "clsx": "^1.1.1",
     "cookie": "^0.5.0",
@@ -69,6 +71,7 @@
     "react-dom": "17.0.2",
     "react-perfect-scrollbar": "^1.5.8",
     "react-popper": "^2.2.5",
+    "wagmi": "^1.0.8",
     "web3": "^1.10.0"
   },
   "devDependencies": {
