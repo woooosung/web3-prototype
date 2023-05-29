@@ -30,7 +30,7 @@ const UserDropdown = () => {
 
   const handleDropdownClose = (url?: string) => {
     if (url) {
-      router.push(url)
+      window.location.replace(url)
     }
     setAnchorEl(null)
   }

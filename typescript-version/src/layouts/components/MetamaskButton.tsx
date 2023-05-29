@@ -46,6 +46,10 @@ const MetaMaskButton: React.FC = () => {
       setProvider(null);
       setAccount('');
       saveSettings({ ...settings, userId: '' });
+
+      document.cookie = 'myCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+      window.location.replace('/pages/login/')
+
     } catch (error) {
       console.error(error);
     }
@@ -64,7 +68,7 @@ const MetaMaskButton: React.FC = () => {
         const usersRef = collection(db, 'user');
         const querySnapshot = await getDocs(query(usersRef, where('wallet', '==', account)));
         if (!querySnapshot.empty) {
-          router.push('/')
+          window.location.replace('/')
         } else {
           router.push('/pages/survey')
         }

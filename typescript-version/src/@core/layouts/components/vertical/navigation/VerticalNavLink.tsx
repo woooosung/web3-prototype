@@ -1,4 +1,4 @@
-import { ElementType, ReactNode } from 'react'
+import { ElementType, ReactNode , useEffect, useState} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Chip from '@mui/material/Chip'
@@ -54,7 +54,7 @@ const VerticalNavLink = ({ item, navVisible, toggleNavVisibility }: Props) => {
   // ** Hooks
   const router = useRouter()
   const IconTag: ReactNode = item.icon
-  const { settings, saveSettings } = useSettings();
+  const [disabled, setDisabled] = useState(false)
 
   const isNavLinkActive = () => {
     if ((router.pathname === item.path || handleURLQueries(router, item.path))) {
@@ -64,6 +64,20 @@ const VerticalNavLink = ({ item, navVisible, toggleNavVisibility }: Props) => {
     }
   }
 
+  useEffect(() => {
+    let cookieValue = ''
+    const cookieName = 'myCookie'
+    const cookies = document.cookie.split(';')
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim()
+      if (cookie.startsWith(`${cookieName}=`)) {
+        cookieValue = cookie.substring(cookieName.length + 1)
+        break
+      }
+    }
+
+    setDisabled(cookieValue == '')
+  }, []);
 
 
   return (
@@ -89,7 +103,7 @@ const VerticalNavLink = ({ item, navVisible, toggleNavVisibility }: Props) => {
           }}
           sx={{
             pl: 5.5,
-            ...(item.disabled || !settings.userId ? { pointerEvents: 'none' } : { cursor: 'pointer' })
+            ...(item.disabled || disabled ? { pointerEvents: 'none' } : { cursor: 'pointer' })
           }}
         >
           <ListItemIcon
