@@ -2,7 +2,7 @@
 
 ## Background
 
-<img width="313" alt="dngu" src="https://github.com/woooosung/ts_prototype/assets/77828537/5a2d8ab1-162e-4a2b-b913-7958b54ff9fe">
+<img width="313" alt="dngu" src="https://github.com/woooosung/ts_prototype/blob/develop/do-not-give-up/public/dngu.png">
 
 Can we use Blockchain as an Edu Data Marketplace?
 
