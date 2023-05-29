@@ -1,0 +1,51 @@
+import { Children } from 'react'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+import createEmotionServer from '@emotion/server/create-instance'
+import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
+
+class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang='en'>
+        <Head>
+          <link
+            rel='stylesheet'
+            href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
+          />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
+  }
+}
+
+MyDocument.getInitialProps = async ctx => {
+  const originalRenderPage = ctx.renderPage
+  const cache = createEmotionCache()
+  const { extractCriticalToChunks } = createEmotionServer(cache)
+
+  ctx.renderPage = () =>
+    originalRenderPage({})
+
+  const initialProps = await Document.getInitialProps(ctx)
+  const emotionStyles = extractCriticalToChunks(initialProps.html)
+  const emotionStyleTags = emotionStyles.styles.map(style => {
+    return (
+      <style
+        key={style.key}
+        dangerouslySetInnerHTML={{ __html: style.css }}
+        data-emotion={`${style.key} ${style.ids.join(' ')}`}
+      />
+    )
+  })
+
+  return {
+    ...initialProps,
+    styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags]
+  }
+}
+
+export default MyDocument
