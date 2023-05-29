@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { Button } from '@mui/material'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -183,9 +183,8 @@ async function setData(wallet, score){
   let storeScore;
   let tmpData;
   try {
-    const q = query(usersCollectionRef, where('wallet', '==', wallet));
+    const q = query(usersCollectionRef, where('wallet', '==', wallet.current));
     const querySnapshot = await getDocs(q);
-    
     querySnapshot.forEach((doc) => {
       tmpData = doc.data();
   });
@@ -193,18 +192,14 @@ async function setData(wallet, score){
   } catch (error) {
     console.error('Error getting user data:', error);
   } finally {
-    
     if (tmpData !== undefined){
       storeScore = parseInt(tmpData["score"]) + parseInt(score);
+      await storeData(wallet.current, storeScore)
+      alert("Updated Score Successfully!");
     } else {
-      console.log("Error occured")
+      console.log("Error occured");
+      alert("Failed to update score");
     }
-  }
-
-  try {
-    await storeData(wallet, storeScore)
-  } catch (error) {
-    console.error('Error storing user data:', error);
   }
 }
 
@@ -235,17 +230,22 @@ async function storeData(wallet, score) {
 const ScoreForm = () => {
   const router = useRouter();
   const { score } = router.query;
-  
-  let cookieValue = ''
-  const cookieName = 'myCookie'
-    const cookies = document.cookie.split(';')
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim()
-      if (cookie.startsWith(`${cookieName}=`)) {
-        cookieValue = cookie.substring(cookieName.length + 1)
-        break
+  const cookieValueRef = useRef(null);
+
+  useEffect(() => {
+    const cookieName = 'myCookie'
+    
+    const cookie = document.cookie;
+
+    if (cookie) {
+      const startIndex = cookie.indexOf(`${cookieName}=`);
+      if (startIndex !== -1) {
+        const endIndex = cookie.indexOf(';', startIndex);
+        const cookieValue = endIndex === -1 ? cookie.substring(startIndex + cookieName.length + 1) : cookie.substring(startIndex + cookieName.length + 1, endIndex);
+        cookieValueRef.current = cookieValue; // Store the cookie value in the useRef
+      }
     }
-  }
+  }, [])
 
   const testData = {
     Q1 : 1241234,
@@ -257,11 +257,9 @@ const ScoreForm = () => {
 
   const update = async () => {
     try{
-      await setData(cookieValue, score);
+      await setData(cookieValueRef, score);
     } catch (err) {
       console.log(err);
-    } finally {
-      alert("Updated Score Successfully!");
     }
   }
 
