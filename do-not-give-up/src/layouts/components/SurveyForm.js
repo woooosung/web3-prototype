@@ -296,11 +296,15 @@ const SurveyForm = () => {
         console.log('user added')
       } catch (error) {
         console.error('Error adding user: ', error)
-      } finally {
-        const result = window.confirm('If you press "Yes" button, your survey about Study habit will be written in our utility token which is using Sepolia Testnet. If you agree, press "Yes"');
+      } 
+      const result = window.confirm('If you press "Yes" button, your survey about Study habit will be written in our utility token which is using Sepolia Testnet. If you agree, press "Yes"');
+      try {
         if (result){
-          writeDataToToken(surveyData)
+          await writeDataToToken(surveyData)
         }
+      } catch (error) {
+        console.log(error)
+      } finally {
         window.location.replace('/')
       }
     }
