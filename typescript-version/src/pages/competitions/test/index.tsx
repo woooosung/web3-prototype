@@ -50,6 +50,7 @@ const Upload = () => {
     const handleSubmit = (event: React.FormEvent) => {
       event.preventDefault();
       setTimerRunning(false); // Stop the timer
+      
       router.push(`/score?score=${calculateScore()}`); // Redirect to the score page with the score as a query parameter
     };
 

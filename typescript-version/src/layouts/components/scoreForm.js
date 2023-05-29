@@ -178,21 +178,34 @@ async function writeDataToToken(data) {
   }
 }
 
-async function readData(wallet) {
-  const usersCollectionRef = collection(db, 'user')
-  let userData
+async function setData(wallet, score){
+  const usersCollectionRef = collection(db, 'user');
+  let storeScore;
+  let tmpData;
   try {
-    const q = query(usersCollectionRef, where('wallet', '==', wallet))
-    const querySnapshot = await getDocs(q)
-
-    querySnapshot.forEach(doc => {
-      userData = doc.data()
-    })
+    const q = query(usersCollectionRef, where('wallet', '==', wallet));
+    const querySnapshot = await getDocs(q);
+    
+    querySnapshot.forEach((doc) => {
+      tmpData = doc.data();
+  });
+    
   } catch (error) {
-    console.error('Error getting user data:', error)
+    console.error('Error getting user data:', error);
+  } finally {
+    
+    if (tmpData !== undefined){
+      storeScore = parseInt(tmpData["score"]) + parseInt(score);
+    } else {
+      console.log("Error occured")
+    }
   }
 
-  return userData.score
+  try {
+    await storeData(wallet, storeScore)
+  } catch (error) {
+    console.error('Error storing user data:', error);
+  }
 }
 
 async function storeData(wallet, score) {
@@ -200,13 +213,12 @@ async function storeData(wallet, score) {
 
   const q = query(usersCollectionRef, where('wallet', '==', wallet))
   try {
-    const querySnapshot = await getDocs(q)
-    console.log(score)
-    querySnapshot.forEach(doc => {
-      const userData = doc.data()
-      const updatedData = { ...userData, score: score }
-
-      const docRef = doc.ref
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const userData = doc.data();
+      const updatedData = { ...userData, score : score};
+  
+      const docRef = doc.ref;
       updateDoc(docRef, updatedData)
         .then(() => {
           console.log('Document updated successfully!')
@@ -221,30 +233,35 @@ async function storeData(wallet, score) {
 }
 
 const ScoreForm = () => {
-  const router = useRouter()
-  const { score } = router.query
-  const [isScore, _] = useState(score ?? 0)
-
-  useEffect(() => {
-    async function readAndStoreData() {
-      let cookieValue
-      const cookieName = 'myCookie'
-      const cookies = document.cookie.split(';')
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim()
-        if (cookie.startsWith(`${cookieName}=`)) {
-          cookieValue = cookie.substring(cookieName.length + 1)
-          break
-        }
-      }
-
-      let storedScore = await readData(cookieValue)
-      console.log('Stored Score: ', storedScore)
-      let setScore = storedScore + isScore
-      await storeData(cookieValue, setScore)
+  const router = useRouter();
+  const { score } = router.query;
+  
+  let cookieValue = ''
+  const cookieName = 'myCookie'
+    const cookies = document.cookie.split(';')
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim()
+      if (cookie.startsWith(`${cookieName}=`)) {
+        cookieValue = cookie.substring(cookieName.length + 1)
+        break
     }
+  }
 
-    readAndStoreData()
+  const testData = {
+    Q1 : 1241234,
+    Q2 : score,
+    Q3 : 12341
+  };
+
+  //writeDataToToken(testData)
+
+  const update = async () => {
+    try{
+      await setData(cookieValue, score);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
     if (isScore == null) {
       // If the score is not available, redirect the user back to the upload page
@@ -254,7 +271,7 @@ const ScoreForm = () => {
 
   return (
     <div>
-      <h1>🔥Score🔥</h1>
+      <Typography align='center' variant='h4'>🔥Score🔥</Typography><br/>
       <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography variant='h6' sx={{ fontWeight: 1000 }}>
           Number of correct answers: {isScore}
@@ -263,8 +280,9 @@ const ScoreForm = () => {
         </Typography>
       </Box>
       <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography variant='h6' sx={{ fontWeight: 1000 }}>
-          <Button onClick={() => router.push('/ranking')}>Ranking Page</Button>
+        <Typography variant='h6' sx={{ fontWeight: 1000}}>
+        <Button onClick={update}>Update Score</Button>
+        <Button onClick={() => (router.push('/ranking'))}>Ranking Page</Button>
         </Typography>
       </Box>
     </div>
