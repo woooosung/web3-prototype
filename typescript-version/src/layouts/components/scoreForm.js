@@ -7,6 +7,7 @@ import Web3 from 'web3'
 import detectProvider from '@metamask/detect-provider'
 import { db } from '../../utils/firebaseConfig.js'
 import { collection, query, where, getDocs, updateDoc } from 'firebase/firestore/lite'
+import { AlphaR } from 'mdi-material-ui'
 
 const tokenAddress = '0x95A6640F5d60AC4D1B0F2465820399fc5B5C7337' // Replace with your contract address
 const tokenABI = [
@@ -256,10 +257,18 @@ const ScoreForm = () => {
   //writeDataToToken(testData)
 
   const update = async () => {
+    let isClicked = false;
     try{
-      await setData(cookieValueRef, score);
+      if (!isClicked){
+        await setData(cookieValueRef, score);
+        isClicked = true;
+      } else {
+        alert("You can update score only once!")
+      }
     } catch (err) {
       console.log(err);
+    }finally {
+      router.push('/ranking')
     }
   }
 
@@ -276,7 +285,6 @@ const ScoreForm = () => {
       <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography variant='h6' sx={{ fontWeight: 1000}}>
         <Button onClick={update}>Update Score</Button>
-        <Button onClick={() => (router.push('/ranking'))}>Ranking Page</Button>
         </Typography>
       </Box>
     </div>

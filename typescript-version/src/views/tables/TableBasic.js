@@ -8,7 +8,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import { Avatar } from '@mui/material'
 
-const createData = (rank: number, name: string, score: number, level: number, ow: string, image: string) => {
+const createData = (rank, name, score, level, ow, image) => {
   return { rank, name, score, level, ow, image }
 }
 

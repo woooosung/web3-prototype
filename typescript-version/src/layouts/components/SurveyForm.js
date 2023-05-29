@@ -5,6 +5,7 @@ import { collection, addDoc } from 'firebase/firestore/lite'
 import { useRouter } from 'next/router'
 import Web3 from 'web3'
 import detectProvider from '@metamask/detect-provider'
+import Typography from '@mui/material/Typography'
 
 const tokenAddress = '0x95A6640F5d60AC4D1B0F2465820399fc5B5C7337'; // Replace with your contract address
 const tokenABI = [{
@@ -185,6 +186,9 @@ const SurveyForm = () => {
   const [schooltype, setschoolType] = useState('')
   const [target, setTarget] = useState('')
   const [studyType, setStudyType] = useState('')
+  const [userName, setUserName] = useState('')
+  const [gender, setGender] = useState('')
+  const [introduce, setIntroduce] = useState('')
   const router = useRouter()
 
   const handleSubmit = e => {
@@ -204,6 +208,9 @@ const SurveyForm = () => {
     }
 
     const userData = {
+      userName : userName,
+      gender : gender,
+      intro : introduce,
       MockGrade: grade,
       Region: region,
       SchoolGrade: schoolGrade,
@@ -238,6 +245,25 @@ const SurveyForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <Typography align='center' variant='h4'>Personal Information</Typography><br/>
+      <Box mb={2}>
+        <TextField label='UserName' value={userName} onChange={e => setUserName(e.target.value)} fullWidth required />
+      </Box>
+      <Box mb={2}>
+        <TextField label='Please ntroduce yourself with simple words' value={introduce} onChange={e => setIntroduce(e.target.value)} fullWidth required />
+      </Box>
+      <Box mb={2}>
+        <FormControl fullWidth required>
+          <InputLabel>Gender</InputLabel>
+          <Select value={gender} onChange={e => setGender(e.target.value)} fullWidth>
+            <MenuItem value='male'>Male</MenuItem>
+            <MenuItem value='felame'>Female</MenuItem>
+            <MenuItem value='unknown'>Don't want to specify</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <br/>
+      <Typography align='center' variant='h4'>Study Information</Typography><br/>
       <Box mb={2}>
         <FormControl fullWidth required>
           <InputLabel>School Type</InputLabel>

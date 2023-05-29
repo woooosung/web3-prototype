@@ -4,7 +4,7 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 
 // ** Demo Components Imports
-import TableBasic from 'src/views/tables/TableBasic'
+import TableBasic from 'src/views/tables/TableBasic.js'
 
 const Rankings = () => {
   return (
