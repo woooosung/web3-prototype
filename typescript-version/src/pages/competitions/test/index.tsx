@@ -28,14 +28,17 @@ const Upload = () => {
         setTimer(prevTimer => prevTimer - 1);
       }, 1000);
     } else if (timer === 0) {
+      submitBtn();
+
+      /*
       setTimerRunning(false); // Stop the timer when it reaches 0
-      router.push(`/score?score=${calculateScore()}`); // Redirect to the score page with the score as a query parameter
+      router.push(`/score?score=${calculateScore()}`); // Redirect to the score page with the score as a query parameter */
     }
     
-  return () => {
+    return () => {
         clearInterval(interval);
       };
-    }, [timerRunning, timer]);
+    }, []);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
       const inputValue = event.target.value; // Get the input value
@@ -43,29 +46,32 @@ const Upload = () => {
         const updatedInputs = [...prevInputs];
         updatedInputs[index] = inputValue; // Store the input value in the corresponding index of the array
         
-  return updatedInputs;
+        return updatedInputs;
       });
+    };
+
+    const submitBtn = () => {
+      setTimerRunning(false); // Stop the timer
+      
+      router.push(`/score?score=${calculateScore()}`); // Redirect to the score page with the score as a query parameter
     };
 
     const handleSubmit = (event: React.FormEvent) => {
       event.preventDefault();
-      setTimerRunning(false); // Stop the timer
-      
-      router.push(`/score?score=${calculateScore()}`); // Redirect to the score page with the score as a query parameter
     };
 
     const calculateScore = () => {
       // Process the inputs and calculate the number of correct answers
       const correctAnswers = AAA[indexx]
       
-  return inputs.filter((input, index) => input.trim().toLowerCase() === correctAnswers[index]).length;
+      return inputs.filter((input, index) => input.trim().toLowerCase() === correctAnswers[index]).length;
     };
 
     const formatTime = (time: number) => {
       const minutes = Math.floor(time / 60);
       const seconds = time % 60;
       
-  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
 
     return (
@@ -99,7 +105,7 @@ const Upload = () => {
           <br /><br />
           <input type="text" onChange={event => handleInputChange(event, 4)} />
           <br /><br /><br />
-          <Button onClick={()=>router.push('/score')} type='submit'>Submit</Button>
+          <Button onClick={submitBtn} type='submit'>Submit</Button>
         </form>
         </Box>
       </div>
