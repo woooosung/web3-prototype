@@ -272,7 +272,7 @@ const ScoreForm = () => {
 
   return (
     <div>
-      <h1>🔥Score🔥</h1>
+      <Typography align='center' variant='h4'>🔥Score🔥</Typography><br/>
       <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography variant='h6' sx={{ fontWeight: 1000}}>
         Number of correct answers: {score}
