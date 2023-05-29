@@ -245,7 +245,7 @@ const SurveyForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Typography align='center' variant='h4'>Personal Information</Typography><br/>
+      <Typography variant='h5'>Personal Information</Typography><br/>
       <Box mb={2}>
         <TextField label='UserName' value={userName} onChange={e => setUserName(e.target.value)} fullWidth required />
       </Box>
@@ -263,7 +263,7 @@ const SurveyForm = () => {
         </FormControl>
       </Box>
       <br/>
-      <Typography align='center' variant='h4'>Study Information</Typography><br/>
+      <Typography variant='h5'>Study Information</Typography><br/>
       <Box mb={2}>
         <FormControl fullWidth required>
           <InputLabel>School Type</InputLabel>
