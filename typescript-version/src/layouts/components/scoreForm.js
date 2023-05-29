@@ -178,21 +178,34 @@ async function writeDataToToken(data) {
   }
 }
 
-async function readData(wallet){
+async function setData(wallet, score){
   const usersCollectionRef = collection(db, 'user');
-  let userData;
+  let storeScore;
+  let tmpData;
   try {
     const q = query(usersCollectionRef, where('wallet', '==', wallet));
     const querySnapshot = await getDocs(q);
-
+    
     querySnapshot.forEach((doc) => {
-      userData = doc.data();
-    });
+      tmpData = doc.data();
+  });
+    
   } catch (error) {
     console.error('Error getting user data:', error);
+  } finally {
+    
+    if (tmpData !== undefined){
+      storeScore = parseInt(tmpData["score"]) + parseInt(score);
+    } else {
+      console.log("Error occured")
+    }
   }
 
-  return userData.score;
+  try {
+    await storeData(wallet, storeScore)
+  } catch (error) {
+    console.error('Error storing user data:', error);
+  }
 }
 
 async function storeData(wallet, score){
@@ -201,7 +214,6 @@ async function storeData(wallet, score){
   const q = query(usersCollectionRef, where('wallet', '==', wallet));
   try {
     const querySnapshot = await getDocs(q);
-    console.log(score)
     querySnapshot.forEach((doc) => {
       const userData = doc.data();
       const updatedData = { ...userData, score : score};
@@ -223,22 +235,9 @@ async function storeData(wallet, score){
 const ScoreForm = () => {
   const router = useRouter();
   const { score } = router.query;
-
+  
   let cookieValue = ''
-  if (score === undefined){
-    score = 0;
-  }
   const cookieName = 'myCookie'
-    const cookies = document.cookie.split(';')
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim()
-      if (cookie.startsWith(`${cookieName}=`)) {
-        cookieValue = cookie.substring(cookieName.length + 1)
-        break
-  }
-}
-  useEffect(() => {
-    const cookieName = 'myCookie'
     const cookies = document.cookie.split(';')
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim()
@@ -247,20 +246,22 @@ const ScoreForm = () => {
         break
     }
   }
-  }, [])
 
   const testData = {
     Q1 : 1241234,
     Q2 : score,
     Q3 : 12341
-  }
-  
+  };
+
   //writeDataToToken(testData)
 
-  let storedScore = readData(cookieValue)
-  console.log(storedScore)
-  let setScore = storedScore + score
-  storeData(cookieValue, setScore)
+  const update = async () => {
+    try{
+      await setData(cookieValue, score);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     if (score === null) {
@@ -280,8 +281,8 @@ const ScoreForm = () => {
         </Box>
       <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography variant='h6' sx={{ fontWeight: 1000}}>
-    
-        <Button onClick={()=>router.push('/ranking')}>Ranking Page</Button>
+        <Button onClick={update}>Update Score</Button>
+        <Button onClick={() => (router.push('/ranking'))}>Ranking Page</Button>
         </Typography>
         </Box>
 
