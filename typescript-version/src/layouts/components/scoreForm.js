@@ -260,21 +260,17 @@ const ScoreForm = () => {
       await setData(cookieValue, score);
     } catch (err) {
       console.log(err);
+    } finally {
+      alert("Updated Score Successfully!");
     }
   }
-
-    if (isScore == null) {
-      // If the score is not available, redirect the user back to the upload page
-      router.push('/upload')
-    }
-  }, [score, router])
 
   return (
     <div>
       <Typography align='center' variant='h4'>🔥Score🔥</Typography><br/>
       <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography variant='h6' sx={{ fontWeight: 1000 }}>
-          Number of correct answers: {isScore}
+          Number of correct answers: {score}
           <br />
           <br />
         </Typography>
