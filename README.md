@@ -2,7 +2,7 @@
 
 ## Background
 
-<img width="313" alt="dngu" src="https://github.com/woooosung/ts_prototype/blob/develop/do-not-give-up/public/dngu.png">
+<img width="313" alt="dngu" src="https://github.com/woooosung/ts_prototype/assets/77828537/05f2e54d-2620-4c3a-97c2-ac1b5bca09cf">
 
 Can we use Blockchain as an Edu Data Marketplace?
 
@@ -57,5 +57,5 @@ npm run dev
 ```
 ### Deploy contract with Remix
 
-<img width="342" alt="스크린샷 2023-05-29 오후 10 52 52" src="https://github.com/woooosung/ts_prototype/assets/77828537/216a6c25-0c29-4a32-82ad-0c8596000169">
+<img width="342" alt="스크린샷 2023-05-29 오후 10 52 52" src="https://github.com/woooosung/ts_prototype/assets/77828537/5af21f84-6024-4180-b5cb-7e5264329a47">
 
